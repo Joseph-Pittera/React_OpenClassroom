@@ -15,17 +15,17 @@ export const ThemeProvider = ({ children }) => {
     );
 };
 
-export const SurveyContext = createContext()
+export const SurveyContext = createContext();
 
 export const SurveyProvider = ({ children }) => {
-  const [answers, setAnswers] = useState({})
-  const saveAnswers = (newAnswers) => {
-    setAnswers({ ...answers, ...newAnswers })
-  }
+    const [answers, setAnswers] = useState({});
+    const saveAnswers = (newAnswers) => {
+        setAnswers({ ...answers, ...newAnswers });
+    };
 
-  return (
-    <SurveyContext.Provider value={{ answers, saveAnswers }}>
-      {children}
-    </SurveyContext.Provider>
-  )
-}
+    return (
+        <SurveyContext.Provider value={{ answers, saveAnswers }}>
+            {children}
+        </SurveyContext.Provider>
+    );
+};
