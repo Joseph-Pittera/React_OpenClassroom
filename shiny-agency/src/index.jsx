@@ -8,49 +8,63 @@ import Results from './pages/Results';
 import ErrorPage from './components/Error';
 import Header from './components/Header';
 import Freelances from './pages/Freelances';
+import { ThemeProvider, SurveyProvider } from './utils/context';
+import Footer from './components/Footer';
+import GlobalStyle from './utils/style/GlobalStyle';
+
+function GlobalLayout({ children }) {
+    return (
+        <>
+            <ThemeProvider>
+                <GlobalStyle />
+                <Header />
+                {children}
+                <Footer />
+            </ThemeProvider>
+        </>
+    );
+}
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: (
-            <>
-                <Header />
+            <GlobalLayout>
                 <Home />
-            </>
+            </GlobalLayout>
         ),
-
         errorElement: (
-            <>
-                <Header />
+            <GlobalLayout>
                 <ErrorPage />
-            </>
+            </GlobalLayout>
         ),
     },
     {
         path: 'survey/:questionNumber',
         element: (
-            <>
-                <Header />
-                <Survey />
-            </>
+            <SurveyProvider>
+                <GlobalLayout>
+                    <Survey />
+                </GlobalLayout>
+            </SurveyProvider>
         ),
     },
     {
         path: 'results',
         element: (
-            <>
-                <Header />
-                <Results />
-            </>
+            <SurveyProvider>
+                <GlobalLayout>
+                    <Results />
+                </GlobalLayout>
+            </SurveyProvider>
         ),
     },
     {
         path: 'freelances',
         element: (
-            <>
-                <Header />
+            <GlobalLayout>
                 <Freelances />
-            </>
+            </GlobalLayout>
         ),
     },
 ]);

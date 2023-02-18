@@ -20,6 +20,7 @@ const StyledNav = styled.nav`
 `;
 
 function Header() {
+    const pathName = window.location.pathname;
     return (
         <StyledNav>
             <Link to="/">
@@ -27,9 +28,19 @@ function Header() {
             </Link>
 
             <div>
-                <StyledLink to="/">Accueil</StyledLink>
-                <StyledLink to="/freelances">Profils</StyledLink>
-                <StyledLink to="/survey/1" $isFullLink>
+                <StyledLink to="/" $isFullLink={pathName === '/'}>
+                    Accueil
+                </StyledLink>
+                <StyledLink
+                    to="/freelances"
+                    $isFullLink={pathName === '/freelances'}
+                >
+                    Profils
+                </StyledLink>
+                <StyledLink
+                    to="/survey/1"
+                    $isFullLink={pathName.includes('/survey')}
+                >
                     Faire le test
                 </StyledLink>
             </div>

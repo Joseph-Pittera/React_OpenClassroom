@@ -3,6 +3,16 @@ import styled from 'styled-components';
 import colors from '../../utils/style/colors';
 import { Link } from 'react-router-dom';
 
+const HomeContainer = styled.div`
+    display: flex;
+    padding: 5rem 3rem;
+    margin: 3rem auto;
+    gap: 1rem;
+    background-color: ${colors.backgroundLight};
+    border-radius: 1rem;
+    max-width: 800px;
+`;
+
 const HomeText = styled.div`
     font-size: 32px;
     vertical-align: middle;
@@ -10,21 +20,6 @@ const HomeText = styled.div`
     line-height: 3rem;
     margin-bottom: 2rem;
 `;
-
-const StyledDisplay = styled.div`
-    display: grid;
-    justify-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-    align-content: center;
-    padding: 5rem 3rem;
-    margin: 3rem;
-    gap: 1rem;
-    background-color: ${colors.backgroundLight};
-    border-radius: 1rem;
-`;
-
-const StyledImg = styled.div`padding; 5rem 3rem;`;
 
 const StyledLink = styled(Link)`
     padding: 5px 35px;
@@ -36,12 +31,18 @@ const StyledLink = styled(Link)`
     background-color: ${colors.primary};
 `;
 
+const StyledImg = styled.img`
+    max-width: 50%;
+    height: auto;
+`;
+
 function Home() {
     return (
-        <StyledDisplay>
+        <HomeContainer>
             <div
                 style={{
                     padding: '3rem',
+                    minWidth: '250px',
                 }}
             >
                 <HomeText>
@@ -52,14 +53,8 @@ function Home() {
                     Faire le test
                 </StyledLink>
             </div>
-            <StyledImg>
-                <img
-                    src={HomeIllustration}
-                    alt="home illustration"
-                    height="400px"
-                />
-            </StyledImg>
-        </StyledDisplay>
+            <StyledImg src={HomeIllustration} alt="home illustration" />
+        </HomeContainer>
     );
 }
 
