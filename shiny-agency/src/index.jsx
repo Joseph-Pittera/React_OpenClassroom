@@ -42,21 +42,21 @@ const router = createBrowserRouter([
     {
         path: 'survey/:questionNumber',
         element: (
-            <SurveyProvider>
-                <GlobalLayout>
+            <GlobalLayout>
+                <SurveyProvider>
                     <Survey />
-                </GlobalLayout>
-            </SurveyProvider>
+                </SurveyProvider>
+            </GlobalLayout>
         ),
     },
     {
         path: 'results',
         element: (
-            <SurveyProvider>
-                <GlobalLayout>
+            <GlobalLayout>
+                <SurveyProvider>
                     <Results />
-                </GlobalLayout>
-            </SurveyProvider>
+                </SurveyProvider>
+            </GlobalLayout>
         ),
     },
     {

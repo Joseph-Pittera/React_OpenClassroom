@@ -2,13 +2,15 @@ import HomeIllustration from '../../assets/home-illustration.svg';
 import styled from 'styled-components';
 import colors from '../../utils/style/colors';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../utils/hooks';
 
 const HomeContainer = styled.div`
     display: flex;
     padding: 5rem 3rem;
     margin: 3rem auto;
     gap: 1rem;
-    background-color: ${colors.backgroundLight};
+    background-color: ${({ theme }) =>
+        theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
     border-radius: 1rem;
     max-width: 800px;
 `;
@@ -37,8 +39,9 @@ const StyledImg = styled.img`
 `;
 
 function Home() {
+    const { theme } = useTheme();
     return (
-        <HomeContainer>
+        <HomeContainer theme={theme}>
             <div
                 style={{
                     padding: '3rem',

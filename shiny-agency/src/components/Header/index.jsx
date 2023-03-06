@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import colors from '../../utils/style/colors';
-import darkLogo from '../../assets/dark-logo.png';
+import LightLogo from '../../assets/light-logo.png';
+import DarkLogo from '../../assets/dark-logo.png';
+import { useTheme } from '../../utils/hooks';
 
 const StyledLink = styled(Link)`
     padding: 5px 15px;
@@ -13,6 +15,13 @@ const StyledLink = styled(Link)`
         `color: white; border-radius: 30px; background-color: ${colors.primary};`}
 `;
 
+const StyledHeader = styled.div`
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+`;
+
 const StyledNav = styled.nav`
     margin: 1rem;
     display: flex;
@@ -21,13 +30,19 @@ const StyledNav = styled.nav`
 
 function Header() {
     const pathName = window.location.pathname;
+    const { theme } = useTheme();
+
     return (
-        <StyledNav>
+        <StyledHeader>
             <Link to="/">
-                <img src={darkLogo} alt="logo-Shiny" height="50px" />
+                <img
+                    src={theme === 'light' ? DarkLogo : LightLogo}
+                    alt="logo-Shiny"
+                    height="50px"
+                />
             </Link>
 
-            <div>
+            <StyledNav>
                 <StyledLink to="/" $isFullLink={pathName === '/'}>
                     Accueil
                 </StyledLink>
@@ -43,8 +58,8 @@ function Header() {
                 >
                     Faire le test
                 </StyledLink>
-            </div>
-        </StyledNav>
+            </StyledNav>
+        </StyledHeader>
     );
 }
 

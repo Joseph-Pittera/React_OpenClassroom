@@ -1,16 +1,16 @@
 import Card from '../../components/Card';
 import styled from 'styled-components';
 import colors from '../../utils/style/colors';
-import { useState, useEffect } from 'react';
 import { Loader } from '../../utils/style/Atoms';
+import { useFetch, useTheme } from '../../utils/hooks';
 
 const CardsContainer = styled.div`
     display: grid;
-    justify-items: center;
     gap: 24px;
-    grid-template-rows: 250px 250px;
+    grid-template-rows: 350px 350px;
     grid-template-columns: repeat(2, 1fr);
-    margin: 4rem auto;
+    align-items: center;
+    justify-items: center;
 `;
 
 const StyledSubtitle = styled.h4`
@@ -23,32 +23,22 @@ const LoaderWrapper = styled.div`
     justify-content: center;
 `;
 
+const ErrorMsg = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
 function Freelances() {
-    const [freelancesList, setFreelancesList] = useState([]);
-    const [error, setError] = useState(false);
-    const [isDataLoading, setDataLoading] = useState(false);
-    useEffect(() => {
-        async function getFreelances() {
-            setDataLoading(true);
-            try {
-                const response = await fetch(
-                    `http://localhost:8000/freelances`
-                );
-                const { freelancersList } = await response.json();
-                setFreelancesList(freelancersList);
-            } catch (error) {
-                console.log(error);
-                setError(true);
-            } finally {
-                setDataLoading(false);
-            }
-        }
-        getFreelances();
-    }, []);
+    const { theme } = useTheme();
+    const { data, isLoading, error } = useFetch(
+        `http://localhost:8000/freelances`
+    );
 
     if (error) {
-        return <span>Oups il y a eu un problème</span>;
+        return <ErrorMsg>Oups il y a eu un problème</ErrorMsg>;
     }
+
+    const freelancesList = data?.freelancersList;
 
     return (
         <div>
@@ -56,12 +46,12 @@ function Freelances() {
             <StyledSubtitle>
                 Chez Shiny nous réunissons les meilleurs profils pour vous.
             </StyledSubtitle>
-            {isDataLoading ? (
+            {isLoading ? (
                 <LoaderWrapper>
                     <Loader />
                 </LoaderWrapper>
             ) : (
-                <CardsContainer>
+                <CardsContainer theme={theme}>
                     {freelancesList.map((profile, index) => (
                         <Card
                             key={`${profile.name}-${index}`}
